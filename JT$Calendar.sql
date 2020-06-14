@@ -6,10 +6,10 @@ CREATE TABLE JT$Calendar (
 
 -- Вызываем выполняемую секцию PL/SQL
 BEGIN
-    FOR r_product IN 1..31
+    FOR i_day IN 1..31
     LOOP
         -- При помощи процедуры TO_DATE добавляем новую дату
-        INSERT INTO JT$Calendar(Cal_Day) VALUES (TO_DATE(r_product||'-01-2009', 'DD-MM-YYYY'));
+        INSERT INTO JT$Calendar(Cal_Day) VALUES (TO_DATE(i_day||'-01-2009', 'DD-MM-YYYY'));
     END LOOP; 
 END;
 /
