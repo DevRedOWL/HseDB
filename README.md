@@ -106,11 +106,13 @@ SELECT * FROM JT$Saldo;
 - Общее число сотрудников подразделения.
 - Число сотрудников подразделения, принятых на работу (Hiredate) в январе 2009 г.
 - Суммарный оклад (Sal) всех сотрудников подразделения.
+- Процентная доля оклада сотрудников подразделения, принятых на работу (Hiredate) в январе 2009 г., в суммарном окладе сотрудников подразделения
 ```sqlpl
 SELECT Deptno AS "Номер подразделения", 
     COUNT(Ename) AS "Число сотрудников",  
     COUNT(CASE WHEN Hiredate >= '01.Jan.2009' AND Hiredate <= '31.Jan.2009' THEN Hiredate END)AS "Принятые на работу в январе 2009", 
-    SUM(Sal) AS "Суммарный оклад"
+    SUM(Sal) AS "Суммарный оклад",
+    ROUND(SUM(CASE WHEN Hiredate >= '01.Jan.2009' AND Hiredate <= '31.Jan.2009' THEN sal END)/SUM(Sal)*100,2) AS "Процентная доля %"
 FROM JT$Emp
 GROUP BY Deptno
 ORDER BY Deptno
