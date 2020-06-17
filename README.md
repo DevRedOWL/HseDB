@@ -25,14 +25,14 @@ END;
 ```sqlpl
 DROP TABLE JT$Emp;
 CREATE TABLE JT$Emp(
-    Empno    NUMBER NOT NULL PRIMARY KEY,
-    Ename    VARCHAR2(80) NOT NULL,
-    Job      VARCHAR2(30) NOT NULL,
-    Mgr      NUMBER,
-    Hiredate DATE NOT NULL,
-    Sal      NUMBER(10,2) NOT NULL,
-    Comm     NUMBER(10,2),
-    Deptno   NUMBER(2,0) NOT NULL
+    Empno       NUMBER NOT NULL PRIMARY KEY,
+    Ename       VARCHAR2(80) NOT NULL,
+    Job         VARCHAR2(30) NOT NULL,
+    Mgr         NUMBER,
+    Hiredate    DATE NOT NULL,
+    Sal         NUMBER(10,2) NOT NULL,
+    Comm        NUMBER(10,2),
+    Deptno      NUMBER(2,0) NOT NULL
 );
 INSERT INTO JT$Emp(Empno,Ename,Job,Mgr,Hiredate,Sal,Comm,Deptno) VALUES (7369,'SMITH','CLERK',7902,'17.Dec.2007',800.00,NULL,20);
 INSERT INTO JT$Emp(Empno,Ename,Job,Mgr,Hiredate,Sal,Comm,Deptno) VALUES (7499,'ALLEN','SALESMAN',7698,'20.Feb.2005',1600.00,300.00,30);
@@ -53,12 +53,12 @@ INSERT INTO JT$Emp(Empno,Ename,Job,Mgr,Hiredate,Sal,Comm,Deptno) VALUES (7934,'M
 -- Пересоздаем таблицу 
 DROP TABLE JT$Operations;
 CREATE TABLE JT$Operations(
-  Operation_Id   NUMBER NOT NULL PRIMARY KEY, 
-  Account_Id     NUMBER NOT NULL,
-  Operation_Type VARCHAR2(1) NOT NULL CHECK(Operation_Type IN ('D','C')),
-  Operation_Date DATE NOT NULL,
-  Agreement_Num  VARCHAR2(20),
-  Amount         NUMBER(20, 2) NOT NULL
+    Operation_Id    NUMBER NOT NULL PRIMARY KEY, 
+    Account_Id      NUMBER NOT NULL,
+    Operation_Type  VARCHAR2(1) NOT NULL CHECK(Operation_Type IN ('D','C')),
+    Operation_Date  DATE NOT NULL,
+    Agreement_Num   VARCHAR2(20),
+    Amount          NUMBER(20, 2) NOT NULL
 );
 
 -- Заполняем таблицу
@@ -71,4 +71,32 @@ INSERT INTO JT$Operations(Operation_Id,Account_Id,Operation_Type,Operation_Date,
 INSERT INTO JT$Operations(Operation_Id,Account_Id,Operation_Type,Operation_Date,Agreement_Num,Amount) VALUES (7,1,'D','01.Jan.2009','01-11A',150.00);
 INSERT INTO JT$Operations(Operation_Id,Account_Id,Operation_Type,Operation_Date,Agreement_Num,Amount) VALUES (8,1,'C','01.Jan.2009',NULL,500.00);
 INSERT INTO JT$Operations(Operation_Id,Account_Id,Operation_Type,Operation_Date,Agreement_Num,Amount) VALUES (9,1,'C','01.Jan.2009',NULL,327.20);
+```
+
+## Таблица JT$Saldo
+```sqlpl
+-- Пересоздаем таблицу 
+DROP TABLE JT$Saldo;
+CREATE TABLE JT$Saldo(
+    Customer_Id NUMBER NOT NULL,
+    Account_Id  NUMBER NOT NULL,
+    Beg_Date    DATE NOT NULL,
+    End_Date    DATE NOT NULL,
+    Out_Saldo   NUMBER(20,2) NOT NULL
+);
+
+-- Заполняем таблицу
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,1,'01.Dec.2008','19.Dec.2008',100.00);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,1,'20.Dec.2008','21.Dec.2008',180.00);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,1,'22.Dec.2008','31.Dec.2008',83.50);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,1,'01.Jan.2009','09.Jan.2009',-923.70);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,1,'10.Jan.2009','31.Dec.9999',0.32);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,2,'08.Dec.2008','19.Dec.2008',10.00);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,2,'20.Dec.2008','20.Dec.2008',120.00);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,2,'21.Dec.2008','04.Jan.2009',63.10);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,2,'05.Jan.2009','24.Jan.2009',1200.00);
+INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,2,'25.Jan.2009','31.Dec.9999',1003.31);
+
+-- Выводим на экран
+SELECT * FROM JT$Saldo;
 ```
