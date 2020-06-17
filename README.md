@@ -100,3 +100,13 @@ INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES 
 -- Выводим на экран
 SELECT * FROM JT$Saldo;
 ```
+## Задание 1
+```sqlpl
+SELECT Deptno AS "Номер подразделения", 
+    COUNT(Ename) AS "Число сотрудников",  
+    COUNT(CASE WHEN Hiredate >= '01.Jan.2009' AND Hiredate <= '31.Jan.2009' THEN Hiredate END)AS "Принятые на работу в январе 2009", 
+    SUM(Sal) AS "Суммарный оклад"
+FROM JT$Emp
+GROUP BY Deptno
+ORDER BY Deptno
+```
