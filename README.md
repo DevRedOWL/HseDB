@@ -119,7 +119,52 @@ GROUP BY Deptno
 ORDER BY Deptno
 ```
 Выбрать аналогичные данные по сотрудникам, подчиненным (как непосредственно, так и опосредованно, по иерархии подчинения) заданному сотруднику (использовать номер сотрудника 7698). Идентификатор (Empno) непосредственного руководителя сотрудника содержится в поле Mgr.
+
+Ненужная часть (не подразумевается заданием) - список сотрудников, подчинённых данному
 ```sqlpl
-//ИГОРЬ ТЕБЕ СЮДА
+with q(Empno, EName, Mgr,main_id) as (
+select Empno, EName, Mgr, Empno as main_id from JT$Emp
+union all
+select c.Empno, c.EName, c.Mgr, q.main_id as main_id from JT$Emp c
+inner join q on c.Mgr=q.Empno)
+
+SELECT Deptno AS "Номер подразделения", Ename AS "Имя сотрудника"
+from JT$Emp where Empno in( 
+select Empno from q where main_id=7698) and Empno!=7698;
+
 ```
+Где первая часть - рекурсивный поиск подчинённых, вторая часть - их вывод.
+
+Результат:
+Номер подразделения	Имя сотрудника
+30	                WARD
+30	                ALLEN
+30	                JAMES
+30	                MARTIN
+30	                TURNER
+Само задание - вывести данные по подразделениям, к которым принадлежат сотрудники
+```sqlpl
+with q(Empno, EName, Mgr,main_id) as (
+select Empno, EName, Mgr, Empno as main_id from JT$Emp
+union all
+select c.Empno, c.EName, c.Mgr, q.main_id as main_id from JT$Emp c
+inner join q on c.Mgr=q.Empno)
+
+SELECT Deptno AS "Номер подразделения",
+COUNT(Ename) AS "Число сотрудников",  
+    COUNT(CASE WHEN Hiredate >= '01.Jan.2009' AND Hiredate <= '31.Jan.2009' THEN Hiredate END)AS "Принятые на работу в январе 2009", 
+    SUM(Sal) AS "Суммарный оклад",
+    ROUND(SUM(CASE WHEN Hiredate >= '01.Jan.2009' AND Hiredate <= '31.Jan.2009' THEN sal END)/SUM(Sal)*100,2) AS "Процентная доля %"
+from JT$Emp where Empno in( 
+select Empno from q where main_id=7698) and Empno!=7698
+GROUP BY Deptno
+ORDER BY Deptno
+```
+Где первая часть - рекурсивный поиск подчинённых, вторая часть - вывод информации о подразделениях.
+
+Результат:
+
+Номер подразделения	Число сотрудников	Принятые на работу в январе 2009	Суммарный оклад	Процентная доля %
+30                  5	                2	                                6550	        41.98
+
 ## Задание 2
