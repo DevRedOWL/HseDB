@@ -137,6 +137,7 @@ select Empno from q where main_id=7698) and Empno!=7698;
 
 Результат:
 Номер подразделения	Имя сотрудника
+
 30	                WARD
 
 30	                ALLEN
