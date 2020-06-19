@@ -126,6 +126,22 @@ INSERT INTO JT$Operations(Operation_Id,Account_Id,Operation_Type,Operation_Date,
 INSERT INTO JT$Operations(Operation_Id,Account_Id,Operation_Type,Operation_Date,Agreement_Num,Amount) VALUES (8,1,'C','01.Jan.2009',NULL,500.00);
 INSERT INTO JT$Operations(Operation_Id,Account_Id,Operation_Type,Operation_Date,Agreement_Num,Amount) VALUES (9,1,'C','01.Jan.2009',NULL,327.20);
 ```
+Вывод таблицы JT#Calendar: 
+```sqlpl
+SELECT * FROM JT$Operations
+```
+| OPERATION_ID | ACCOUNT_ID | OPERATION_TYPE | OPERATION_DATE | AGREEMENT_NUM |	AMOUNT |
+| ---------- | ---------- | ---------- | ---------- | ---------- | ---------- |
+|1|1|C|01-JAN-09|-|100|
+|2|1|C|01-JAN-09|01-11A|230|
+|3|1|C|01-JAN-09|01-11B|350|
+|4|1|D|01-JAN-09|-|100|
+|5|1|D|01-JAN-09|-|100|
+|6|1|D|01-JAN-09|01-11A|150|
+|7|1|D|01-JAN-09|01-11A|150|
+|8|1|C|01-JAN-09|-|500|
+|9|1|C|01-JAN-09|-|327.2|
+
 
 ## Таблица JT$Saldo
 ```sqlpl
