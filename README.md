@@ -300,4 +300,42 @@ ORDER BY Deptno
 
 > SQL код:
 
+```sqlpl
+create view second_view as
+select Agreement_Num,
+min (case Operation_Type when 'D' then Operation_Id end) as Operation_Id_debet,
+min (case Operation_Type when 'D' then Amount end) as Amount_debet,
+min (case Operation_Type when 'C' then Operation_Id end) as Operation_Id_credit,
+min (case Operation_Type when 'C' then Amount end) as Amount_credit
+from (select Account_Id, Operation_Date, Agreement_Num, Operation_Id, Operation_Type, Amount, row_number() over(partition by Agreement_Num, Operation_Type order by Operation_Id) as rn
+from JT$Operations)
+group by Agreement_Num, rn
+order by Agreement_Num nulls first, rn;
+
+select
+distinct
+JT$Operations.Account_Id as "Идент. счета",
+JT$Operations.Operation_Date as "Дата операции",
+second_view.AGREEMENT_NUM as "Номер договора",
+second_view.OPERATION_ID_DEBET as "Ключ операции",
+second_view.AMOUNT_DEBET as "Сумма",
+second_view.OPERATION_ID_CREDIT as "Ключ операци",
+second_view.AMOUNT_CREDIT as "Сумма"
+from second_view
+left outer join JT$Operations on second_view.OPERATION_ID_CREDIT = JT$Operations.OPERATION_ID or second_view.OPERATION_ID_DEBET = JT$Operations.OPERATION_ID
+order by second_view.AGREEMENT_NUM nulls first
+```
+
+> Результат выполнения:
+
+
+| Идент. счета | Дата операции | Номер договора | Ключ операции(дебет) | Сумма(дебет) | Ключ операции(кредит) | Сумма(кредит) |
+| ---------- | ---------- | ---------- | ---------- | ---------- |---------- | ---------- |
+|1|01.01.2005| |4|100.00|1|100.00|
+|1|01.01.2005| |5|100.00|8|500.00|
+|1|01.01.2005| | | |9|327.20|
+|1|01.01.2005|01-11A|6|150.00|2|230.00|
+|1|01.01.2005|01-11A|7|150.00| | |
+|1|01.01.2005|01-11B| | |3|350.00|
+
 > Результат выполнения:
