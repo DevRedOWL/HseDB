@@ -339,6 +339,7 @@ order by second_view.AGREEMENT_NUM nulls first
 
 > SQL код выполнения с параметрами:
 
+```sqlpl
 select
 distinct
 JT$Operations.Account_Id as "Идент. счета",
@@ -354,6 +355,7 @@ where JT$Operations.Account_Id = 1
 and JT$Operations.Operation_Date >= to_date('01.01.2009','dd.mm.yyyy')
 and JT$Operations.Operation_Date <= to_date('02.01.2009','dd.mm.yyyy')
 order by JT$Operations.Operation_Date, second_view.AGREEMENT_NUM nulls first
+```
 
 > Результат выполнения с параметрами:
 
