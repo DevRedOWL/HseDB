@@ -343,11 +343,11 @@ select
 distinct
 JT$Operations.Account_Id as "Идент. счета",
 JT$Operations.Operation_Date as "Дата операции",
-second_view.AGREEMENT_NUM as "Номер договора(дебет)",
-second_view.OPERATION_ID_DEBET as "Ключ операции(дебет)",
-second_view.AMOUNT_DEBET as "Сумма",
-second_view.OPERATION_ID_CREDIT as "Ключ операци",
-second_view.AMOUNT_CREDIT as "Сумма"
+second_view.AGREEMENT_NUM as "Номер договора",
+second_view.OPERATION_ID_DEBET as "Ключ операции (Дебет)",
+to_char(second_view.AMOUNT_DEBET, 'fm99999.00') as "Сумма (Дебет)",
+second_view.OPERATION_ID_CREDIT as "Ключ операци (Кредит)",
+to_char(second_view.AMOUNT_CREDIT, 'fm99999.00') as "Сумма (Кредит)"
 from second_view
 left outer join JT$Operations on second_view.OPERATION_ID_CREDIT = JT$Operations.OPERATION_ID or second_view.OPERATION_ID_DEBET = JT$Operations.OPERATION_ID
 where JT$Operations.Account_Id = 1
@@ -365,3 +365,5 @@ order by JT$Operations.Operation_Date, second_view.AGREEMENT_NUM nulls first
 |1|01.01.2005|01-11A|6|150.00|2|230.00|
 |1|01.01.2005|01-11A|7|150.00| | |
 |1|01.01.2005|01-11B| | |3|350.00|
+
+Сумма хранится как вщественное число.
