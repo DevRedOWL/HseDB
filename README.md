@@ -18,10 +18,11 @@ BEGIN
         INSERT INTO JT$Calendar(Cal_Day) VALUES (TO_DATE(i_day||'-01-2009', 'DD-MM-YYYY'));
     END LOOP; 
 END;
-/
 ```
 Вывод таблицы JT#Calendar: 
-
+```sqlpl
+SELECT * FROM
+```
 |CAL_DAY|
 |---------|
 |01-JAN-09|
