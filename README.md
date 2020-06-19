@@ -172,6 +172,7 @@ INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES 
 SELECT * FROM JT$Saldo
 ```
 | CUSTOMER_ID |	ACCOUNT_ID | BEG_DATE | END_DATE | OUT_SALDO |
+| ---------- | ---------- | ---------- | ---------- | ---------- |
 |1|1|01-DEC-08|19-DEC-08|100|
 |1|1|20-DEC-08|21-DEC-08|180|
 |1|1|22-DEC-08|31-DEC-08|83.5|
