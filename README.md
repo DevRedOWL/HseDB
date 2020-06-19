@@ -317,10 +317,10 @@ distinct
 JT$Operations.Account_Id as "Идент. счета",
 JT$Operations.Operation_Date as "Дата операции",
 second_view.AGREEMENT_NUM as "Номер договора",
-second_view.OPERATION_ID_DEBET as "Ключ операции",
-second_view.AMOUNT_DEBET as "Сумма",
-second_view.OPERATION_ID_CREDIT as "Ключ операци",
-second_view.AMOUNT_CREDIT as "Сумма"
+second_view.OPERATION_ID_DEBET as "Ключ операции(дебет)",
+second_view.AMOUNT_DEBET as "Сумма(дебет)",
+second_view.OPERATION_ID_CREDIT as "Ключ операции(кредит)",
+second_view.AMOUNT_CREDIT as "Сумма(кредит)"
 from second_view
 left outer join JT$Operations on second_view.OPERATION_ID_CREDIT = JT$Operations.OPERATION_ID or second_view.OPERATION_ID_DEBET = JT$Operations.OPERATION_ID
 order by second_view.AGREEMENT_NUM nulls first
