@@ -166,10 +166,23 @@ INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES 
 INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,2,'21.Dec.2008','04.Jan.2009',63.10);
 INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,2,'05.Jan.2009','24.Jan.2009',1200.00);
 INSERT INTO JT$Saldo(Customer_Id,Account_Id,Beg_Date,End_Date,Out_Saldo) VALUES (1,2,'25.Jan.2009','31.Dec.9999',1003.31);
-
--- Выводим на экран
-SELECT * FROM JT$Saldo;
 ```
+Вывод таблицы JT$Emp: 
+```sqlpl
+SELECT * FROM JT$Saldo
+```
+| CUSTOMER_ID |	ACCOUNT_ID | BEG_DATE | END_DATE | OUT_SALDO |
+|1|1|01-DEC-08|19-DEC-08|100|
+|1|1|20-DEC-08|21-DEC-08|180|
+|1|1|22-DEC-08|31-DEC-08|83.5|
+|1|1|01-JAN-09|09-JAN-09|-923.7|
+|1|1|10-JAN-09|31-DEC-99|0.32|
+|1|2|08-DEC-08|19-DEC-08|10|
+|1|2|20-DEC-08|20-DEC-08|120|
+|1|2|21-DEC-08|04-JAN-09|63.1|
+|1|2|05-JAN-09|24-JAN-09|1200|
+|1|2|25-JAN-09|31-DEC-99|1003.31|
+
 ## Задание 1
 Написать SQL-запрос, выбирающий из таблицы JT$Emp следующие данные для отчета по подразделениям (ниже перечислены столбцы):
 - Номер подразделения (Deptno).
