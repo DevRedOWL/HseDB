@@ -21,7 +21,7 @@ END;
 ```
 Вывод таблицы JT#Calendar: 
 ```sqlpl
-SELECT * FROM
+SELECT * FROM JT$Calendar
 ```
 |CAL_DAY|
 |---------|
