@@ -298,7 +298,7 @@ ORDER BY Deptno
 
 Если не получается сделать одним запросом SQL, то можно использовать PL/SQL. Главное, чтобы результат в итоге был именно тот, который представлен в таблице.
 
-> SQL код:
+> SQL код (ниже есть 2-й вариант):
 
 ```sqlpl
 create view second_view as
@@ -339,4 +339,29 @@ order by second_view.AGREEMENT_NUM nulls first
 
 > SQL код выполнения с параметрами:
 
+select
+distinct
+JT$Operations.Account_Id as "Идент. счета",
+JT$Operations.Operation_Date as "Дата операции",
+second_view.AGREEMENT_NUM as "Номер договора(дебет)",
+second_view.OPERATION_ID_DEBET as "Ключ операции(дебет)",
+second_view.AMOUNT_DEBET as "Сумма",
+second_view.OPERATION_ID_CREDIT as "Ключ операци",
+second_view.AMOUNT_CREDIT as "Сумма"
+from second_view
+left outer join JT$Operations on second_view.OPERATION_ID_CREDIT = JT$Operations.OPERATION_ID or second_view.OPERATION_ID_DEBET = JT$Operations.OPERATION_ID
+where JT$Operations.Account_Id = 1
+and JT$Operations.Operation_Date >= to_date('01.01.2009','dd.mm.yyyy')
+and JT$Operations.Operation_Date <= to_date('02.01.2009','dd.mm.yyyy')
+order by JT$Operations.Operation_Date, second_view.AGREEMENT_NUM nulls first
+
 > Результат выполнения с параметрами:
+
+| Идент. счета | Дата операции | Номер договора | Ключ операции(дебет) | Сумма(дебет) | Ключ операции(кредит) | Сумма(кредит) |
+| ---------- | ---------- | ---------- | ---------- | ---------- |---------- | ---------- |
+|1|01.01.2005| |4|100.00|1|100.00|
+|1|01.01.2005| |5|100.00|8|500.00|
+|1|01.01.2005| | | |9.00|327.20|
+|1|01.01.2005|01-11A|6|150.00|2|230.00|
+|1|01.01.2005|01-11A|7|150.00| | |
+|1|01.01.2005|01-11B| | |3|350.00|
